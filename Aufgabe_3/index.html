@@ -20,7 +20,8 @@
     </table>
 
     <script>
-        const socket = new WebSocket('ws://localhost:8080');
+        var socketUrl = 'wss://' + window.location.host;
+        const socket = new WebSocket(socketUrl);
 
         socket.onmessage = function(event) {
             console.log("Rohdaten vom Server:", event.data); // NEU: Zeigt den Text an
