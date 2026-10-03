@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 // 1. Logik beim Klicken des Buttons (POST)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['hochzaehlen'])) {
     if (!isset($_SESSION['zaehler'])) {
