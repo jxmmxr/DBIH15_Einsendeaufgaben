@@ -20,13 +20,21 @@ class LiveAbfrage implements MessageComponentInterface {
 
         $this->clients->attach($conn);
 
-        // 1. Daten des neuen Besuchers vorbereiten
-        $name = "Besucher_" . rand(100, 999); // Ein zufälliger Name zum Testen
-        $rawIp = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
+        // 1. Die HTTP-Anfrage aus der Verbindung holen
+        $httpRequest = $conn->httpRequest;
+        
+        // 2. Den Header 'X-Forwarded-For' auslesen
+        $header = $httpRequest->getHeader('X-Forwarded-For');
+        
+        // 3. Wenn der Header da ist, nimm die erste IP, sonst die direkte Adresse
+        if (!empty($header)) {
+            $rawIp = $header[0]; // Das ist oft eine Liste, wir nehmen den ersten Eintrag
+        } else {
+            $rawIp = $conn->remoteAddress;
+        }
 
-        // Falls mehrere IPs durch Komma getrennt sind, nimm die erste
-        $parts = explode(',', $rawIp);
-        $rohe_ip = trim($parts[0]);
+        $ipArray = explode(',', $rawIp);
+        $rohe_ip = trim($ipArray[0]);
         //$rohe_ip = $conn->remoteAddress; // z.B. "127.0.0.1"
         $zeitstempel = date('Y-m-d H:i:s'); 
 
