@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Live-Datenzugriffe</title>
+</head>
+<body>
+    <h1>Aktuelle Zugriffe</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>IP-Adresse</th>
+                <th>Zeitstempel</th>
+            </tr>
+        </thead>
+        <tbody id="tabellenkoerper">
+            <!-- Hier kommen die Daten rein -->
+        </tbody>
+    </table>
+
+    <script>
+        const socket = new WebSocket('ws://localhost:8080');
+
+        socket.onmessage = function(event) {
+            console.log("Rohdaten vom Server:", event.data); // NEU: Zeigt den Text an
+            const daten = JSON.parse(event.data);
+            console.log("Parsed JSON:", daten); // NEU: Zeigt das Objekt/Array an
+            
+            const tabelle = document.getElementById('tabellenkoerper');
+            tabelle.innerHTML = ""; // Alte Einträge löschen
+
+            daten.forEach(function(eintrag) {
+                const zeile = `<tr><td>${eintrag.name}</td><td>${eintrag.ip_adresse}</td><td>${eintrag.zeitstempel}</td></tr>`;
+                tabelle.innerHTML += zeile;
+            });
+        };
+    </script>
+</body>
+</html>
