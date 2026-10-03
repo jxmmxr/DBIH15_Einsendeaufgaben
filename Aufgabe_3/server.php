@@ -22,7 +22,8 @@ class LiveAbfrage implements MessageComponentInterface {
 
         // 1. Daten des neuen Besuchers vorbereiten
         $name = "Besucher_" . rand(100, 999); // Ein zufälliger Name zum Testen
-        $rohe_ip = $conn->remoteAddress; // z.B. "127.0.0.1"
+        $rohe_ip = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
+        //$rohe_ip = $conn->remoteAddress; // z.B. "127.0.0.1"
         $zeitstempel = date('Y-m-d H:i:s'); 
 
         if (str_contains($rohe_ip, '.')){
