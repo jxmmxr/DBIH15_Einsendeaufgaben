@@ -1,11 +1,11 @@
 <?php
-$host = '127.0.0.1'; // Von localhost auf 127.0.0.1 geändert
-$db   = 'live_projekt';
-$user = 'root';
-$pass = 'root';
+$host = 'mysql-einsendeaufgaben-aufgabe-3-dbih15-einsendeaufgaben-aufgab.d.aivencloud.com';
+$db   = 'defaultdb';
+$user = 'avnadmin';
+$pass = getenv('DB_PASSWORD');
 $charset = 'utf8mb4';
 
-$dsn = "mysql:host=$host;port=8889;dbname=$db;charset=$charset"; 
+$dsn = "mysql:host=$host;port=23273;dbname=$db;charset=$charset"; 
 try {
      $pdo = new PDO($dsn, $user, $pass);
 } catch (PDOException $e) {
