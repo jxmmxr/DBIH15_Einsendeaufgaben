@@ -75,10 +75,10 @@ class LiveAbfrage implements MessageComponentInterface {
         $conn->close();
     }
 }
-
+$port = (int)(getenv('PORT') ?: 8080);
 $server = IoServer::factory(
     new HttpServer(new WsServer(new LiveAbfrage())),
-    8080
+    $port
 );
 
 echo "Server gestartet auf Port 8080...\n";
