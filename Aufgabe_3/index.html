@@ -20,7 +20,8 @@
     </table>
 
     <script>
-        var socketUrl = 'wss://' + 'dbih15-einsendeaufgaben.onrender.com/';
+        let userName = prompt("Dein Name:", "Besucher");
+        let socketUrl = 'wss://' + 'dbih15-einsendeaufgaben.onrender.com/' + '?name=' + encodeURIComponent(userName);
         const socket = new WebSocket(socketUrl);
 
         socket.onmessage = function(event) {

@@ -20,6 +20,10 @@ class LiveAbfrage implements MessageComponentInterface {
 
         $this->clients->attach($conn);
 
+        $queryString = $conn->httpRequest->getUri()->getQuery();
+        parse_str($queryString, $queryArray);
+        $name = $queryArray['name'] ?? 'Unbekannter Besucher';
+
         // 1. Die HTTP-Anfrage aus der Verbindung holen
         $httpRequest = $conn->httpRequest;
         
