@@ -6,3 +6,6 @@ COPY . /var/www/html/
 
 # 3. Den Apache-Port auf die Variable von Render umstellen
 RUN sed -i 's/80/${PORT}/g' /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf
+
+# 4. Rechte für den Nutzer ergänzen
+RUN chown -R www-data:www-data /var/www/html/
