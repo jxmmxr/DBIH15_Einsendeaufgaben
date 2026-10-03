@@ -23,6 +23,7 @@ class LiveAbfrage implements MessageComponentInterface {
         // 1. Daten des neuen Besuchers vorbereiten
         $name = "Besucher_" . rand(100, 999); // Ein zufälliger Name zum Testen
         $rohe_ip = $conn->remoteAddress; // z.B. "127.0.0.1"
+        $zeitstempel = date('Y-m-d H:i:s'); 
 
         if (str_contains($rohe_ip, '.')){
             // Wir zerlegen die IP an den Punkten in ein Array
@@ -46,9 +47,9 @@ class LiveAbfrage implements MessageComponentInterface {
         }
 
         // 2. Den neuen Zugriff in die Datenbank schreiben
-        $sql = "INSERT INTO live_zugriffe (name, ip_adresse) VALUES (:name, :ip)";
+        $sql = "INSERT INTO live_zugriffe (name, ip_adresse, zeitstempel) VALUES (:name, :ip, :zeitstempel)";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute(['name' => $name, 'ip' => $maskierte_ip]);
+        $stmt->execute(['name' => $name, 'ip' => $maskierte_ip, 'zeitstempel' => $zeitstempel]);
 
         // 3. Jetzt die (aktualisierten) letzten 10 Einträge holen
         require 'db_logik.php';
