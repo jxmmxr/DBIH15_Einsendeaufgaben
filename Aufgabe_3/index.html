@@ -18,12 +18,20 @@
             <!-- Hier kommen die Daten rein -->
         </tbody>
     </table>
-
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+        <p>Der Server wird geweckt, bitte einen Moment Geduld...</p>
+    </div>
     <script>
         let userName = prompt("Dein Name:", "Besucher");
         let socketUrl = 'wss://' + 'dbih15-einsendeaufgaben-aufgabe-3.onrender.com/' + '?name=' + encodeURIComponent(userName);
         const socket = new WebSocket(socketUrl);
-
+        
+        socket.onopen = function(e) {
+            console.log("Verbindung hergestellt!");
+            // Das Wartefenster ausblenden
+            document.getElementById('loading-overlay').style.display = 'none';
+        };
         socket.onmessage = function(event) {
             console.log("Rohdaten vom Server:", event.data); // NEU: Zeigt den Text an
             const daten = JSON.parse(event.data);
@@ -38,5 +46,15 @@
             });
         };
     </script>
+    <style>
+        #loading-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            z-index: 1000;
+        }
+    </style>
 </body>
 </html>
