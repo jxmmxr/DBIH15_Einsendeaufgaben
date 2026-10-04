@@ -18,9 +18,12 @@ while ($pdo === null) {
     try {
         $versuch++;
         // Versuche die Verbindung
-        $pdo = new PDO($dsn, $user, $pass);
+        $pdo = new PDO($dsn, $user, $pass, [
+          \PDO::ATTR_TIMEOUT => 5, // Wartet nur 5 Sekunden
+          \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
+          ]);
         echo "Verbindung zur Datenbank nach $versuch Versuch(en) erfolgreich!\n";
-    } catch (PDOException $e) {
+    } catch (\PDOException $e) {
         echo "Datenbank noch nicht bereit (Versuch $versuch). Warte 3 Sekunden...\n";
         
         // WICHTIG: Kurze Pause, um den Server nicht zu überlasten
