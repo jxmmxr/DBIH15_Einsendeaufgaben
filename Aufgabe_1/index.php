@@ -39,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 
 $stand = isset($_SESSION['zaehler']) ? $_SESSION['zaehler'] : 0;
+$zeit = isset($_SESSION['uhrzeit']) ? $_SESSION['uhrzeit'] : date('H:i:s');
 ?>
 <HTML>
     <head>
