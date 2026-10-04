@@ -20,6 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['zeitaktualisieren']))
         $_SESSION['uhrzeit'] = date('H:i:s');
     }
     $_SESSION['uhrzeit'] = date('H:i:s');
+    
+    // Wir setzen eine Markierung, dass wir gerade erst hochgezählt haben
+    $_SESSION['darf_einmal_bleiben'] = true;
 
     // Wir leiten auf uns selbst um, damit aus POST ein GET wird (verhindert das F5-Problem)
     header("Location: " . $_SERVER['PHP_SELF']);
