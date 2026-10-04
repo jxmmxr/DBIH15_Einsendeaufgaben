@@ -6,7 +6,11 @@ $pass = getenv('DB_PASSWORD');
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;port=23273;dbname=$db;charset=$charset"; 
-$max_versuche = 10; // Optional: Damit er nicht ewig probiert, falls wirklich was kaputt ist
+/*try {
+     $pdo = new PDO($dsn, $user, $pass);
+} catch (PDOException $e) {
+     die("Fehler: " . $e->getMessage());
+}*/
 $versuch = 0;
 $pdo = null;
 
@@ -14,9 +18,7 @@ while ($pdo === null) {
     try {
         $versuch++;
         // Versuche die Verbindung
-        $pdo = new PDO($dsn, $user, $pass, [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-        ]);
+        $pdo = new PDO($dsn, $user, $pass);
         echo "Verbindung zur Datenbank nach $versuch Versuch(en) erfolgreich!\n";
     } catch (PDOException $e) {
         echo "Datenbank noch nicht bereit (Versuch $versuch). Warte 3 Sekunden...\n";
@@ -25,8 +27,12 @@ while ($pdo === null) {
         sleep(3); 
         
         // Optional: Nach X Versuchen doch abbrechen
-        if ($versuch >= $max_versuche) {
+        if ($versuch >= 20) {
             die("Datenbank nach 20 Versuchen nicht erreichbar. Abbruch.");
         }
     }
+}
+// Test: Ist die Variable jetzt befüllt?
+if ($pdo instanceof PDO) {
+    echo "DEBUG: PDO-Objekt ist bereit für den Export.\n";
 }
