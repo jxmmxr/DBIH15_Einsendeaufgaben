@@ -16,9 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['hochzaehlen'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['zeitaktualisieren'])) {
-    if (!isset($_SESSION['uhrzeit'])) {
-        $_SESSION['uhrzeit'] = date('H:i:s');
-    }
     $_SESSION['uhrzeit'] = date('H:i:s');
     
     // Wir setzen eine Markierung, dass wir gerade erst hochgezählt haben
