@@ -47,8 +47,8 @@ $zeit = isset($_SESSION['uhrzeit']) ? $_SESSION['uhrzeit'] : '00:00:00';
         <title>Clock & Counter</title>
     </head>
     <body>
-        <h1>Mein Zähler: <?php echo $_SESSION['zaehler']; ?></h1>
-        <p>Aktuelle Uhrzeit (UTC): <?php echo $_SESSION['uhrzeit']; ?></p>
+        <h1>Mein Zähler: <?php echo $stand; ?></h1>
+        <p>Aktuelle Uhrzeit (UTC): <?php echo $zeit; ?></p>
         
         <form method="post">
             <button type="submit" name="hochzaehlen">Inkrementieren</button>
