@@ -6,11 +6,12 @@ $pass = getenv('DB_PASSWORD');
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;port=23273;dbname=$db;charset=$charset"; 
-/*try {
+try {
      $pdo = new PDO($dsn, $user, $pass);
 } catch (PDOException $e) {
      die("Fehler: " . $e->getMessage());
-}*/
+}
+/*
 $versuch = 0;
 $pdo = null;
 
@@ -38,4 +39,4 @@ while ($pdo === null) {
 // Test: Ist die Variable jetzt befüllt?
 if ($pdo instanceof PDO) {
     echo "DEBUG: PDO-Objekt ist bereit für den Export.\n";
-}
+}*/
